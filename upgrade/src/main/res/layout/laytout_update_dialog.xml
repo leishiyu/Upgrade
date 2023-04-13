@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="807dp"
+    android:layout_height="586dp"
+    android:background="@drawable/bg_white_radius_10">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_bg"
+        android:layout_width="767dp"
+        android:layout_height="145dp"
+        android:scaleType="centerCrop"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="15dp"
+        android:src="@mipmap/image_update_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/llTitle"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toStartOf="@+id/iv_bg"
+        app:layout_constraintTop_toTopOf="@+id/iv_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_bg">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发现新版本"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:textSize="27sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/iv_bg"
+            app:layout_constraintTop_toTopOf="@+id/iv_bg" />
+
+        <TextView
+            android:id="@+id/tvVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="@+id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            tools:text="V2.12.12" />
+        <TextView
+            android:id="@+id/tvFileSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="@+id/tvVersion"
+            app:layout_constraintTop_toBottomOf="@+id/tvVersion"
+            tools:text="158M" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="@+id/iv_bg"
+        app:layout_constraintEnd_toEndOf="@+id/iv_bg"
+        app:layout_constraintTop_toBottomOf="@+id/iv_bg">
+        <TextView
+            android:id="@+id/tvContentTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="27dp"
+            android:text="更新内容"
+            android:textColor="@color/black333333"
+            android:textSize="20sp" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvContent"
+            android:layout_width="wrap_content"
+            android:layout_height="270dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="25dp"
+            android:textColor="@color/black666666"
+            android:textSize="17sp"
+            android:lineSpacingExtra="20dp"
+            tools:text="@string/tools_content" />
+        <com.yuu.upgrade.view.XDownloadProgressBar
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:progressHeight="18dp"
+            android:paddingVertical="30dp"
+            app:maxProgress="100"
+            app:currentProgress="3"
+            app:textSize="17sp"
+            app:textColor="@color/green1ACFB7"
+            app:progressTotalBackground="#CCCCCC"
+            app:progressCurrentBackground="@color/green1ACFB7"
+            app:progressSlashBackground="@color/green63e5d3"
+            android:visibility="gone" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/llEvent"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            app:alignItems="center"
+            app:flexDirection="row"
+            app:flexWrap="nowrap"
+            android:visibility="visible"
+            app:justifyContent="space_around"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnUpdateLater"
+                android:layout_width="340dp"
+                android:layout_height="53dp"
+                android:background="@drawable/btn_white_radius_4"
+                android:gravity="center"
+                android:stateListAnimator="@null"
+                android:text="取消"
+                android:textColor="@color/black666666"
+                android:textSize="19sp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnUpdateNow"
+                android:layout_width="340dp"
+                android:layout_height="53dp"
+                android:background="@drawable/btn_green_radius_4"
+                android:gravity="center"
+                android:stateListAnimator="@null"
+                android:text="升级"
+                android:textColor="@color/white"
+                android:textSize="19sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnUpdateRetry"
+                android:layout_width="340dp"
+                android:layout_height="53dp"
+                android:background="@drawable/btn_green_radius_4"
+                android:gravity="center"
+                android:stateListAnimator="@null"
+                android:text="重试"
+                android:textColor="@color/white"
+                android:textSize="19sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnUpdateBrowse"
+                android:layout_width="340dp"
+                android:layout_height="53dp"
+                android:background="@drawable/btn_green_radius_4"
+                android:gravity="center"
+                android:stateListAnimator="@null"
+                android:text="浏览器下载"
+                android:textColor="@color/white"
+                android:textSize="19sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </com.google.android.flexbox.FlexboxLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
