@@ -9,7 +9,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.View
-import com.holderzone.update.R
+import com.yuu.update.R
 import com.yuu.upgrade.listener.OnProgressBarListener
 import java.util.*
 
