@@ -1,4 +1,4 @@
-package com.holderzone.update.view
+package com.yuu.upgrade.view
 
 import android.content.Context
 import android.graphics.Canvas
