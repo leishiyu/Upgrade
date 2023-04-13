@@ -52,9 +52,9 @@ afterEvaluate {
     publishing{
         publications {
             create<MavenPublication>("release"){
-                group = "com.yuu.android.component"
-                artifactId = "Bamboo"
-                version = "0.0.5"
+                group = "com.yuu.upgrade"
+                artifactId = "Upgrade"
+                version = "0.0.1"
                 from(components["release"])
             }
         }
