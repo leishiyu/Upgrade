@@ -277,15 +277,15 @@ class UpdateDialogFragment : BaseDialog() {
 //        btnBrowserDownLoad.visibility = View.VISIBLE
 //        btnUpdateExit.visibility = View.VISIBLE
         btnUpdateRetry.visibility = View.VISIBLE
-        appUpdate?.let {
-            if (0 == it.forceUpdate) {
-                // 非强制更新
-                btnUpdateExit.text = "取消"
-            } else {
-                // 强制更新
-                btnUpdateExit.text = "退出"
-            }
-        }
+//        appUpdate?.let {
+//            if (0 == it.forceUpdate) {
+//                // 非强制更新
+//                btnUpdateExit.text = "取消"
+//            } else {
+//                // 强制更新
+//                btnUpdateExit.text = "退出"
+//            }
+//        }
     }
 
     /**
