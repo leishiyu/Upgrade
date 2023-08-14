@@ -84,4 +84,7 @@ class DownloadReceiver : BroadcastReceiver() {
             e.printStackTrace()
         }
     }
+    companion object{
+        const val INTENT_ACTION_TYPE = "application/vnd.android.package-archive"
+    }
 }

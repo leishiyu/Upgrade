@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentActivity
 import com.yuu.upgrade.api.UpdateApi
 import com.yuu.upgrade.downloadManager.DownloadHandler
 import com.yuu.upgrade.downloadManager.DownloadObserver
+import com.yuu.upgrade.downloadManager.DownloadReceiver
 import com.yuu.upgrade.listener.UpdateDialogListener
 import com.yuu.upgrade.model.AppUpdate
 import com.yuu.upgrade.view.UpdateDialogFragment
@@ -127,7 +128,7 @@ class UpdateManager : UpdateDialogListener, UpdateApi {
                         deleteApkFile(it)
                     }
                 }
-                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+//                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
                 // 部分机型（暂时发现Nexus 6P）无法下载，猜测原因为默认下载通过计量网络连接造成的，通过动态判断一下
                 val connectivityManager =
                     context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -141,7 +142,7 @@ class UpdateManager : UpdateDialogListener, UpdateApi {
                 // 设置通知栏的描述
                 request.setDescription("正在下载中...")
                 // 设置媒体类型为apk文件
-                request.setMimeType("application/vnd.android.package-archive")
+                request.setMimeType(DownloadReceiver.INTENT_ACTION_TYPE)
                 // 开启下载，返回下载id
                 lastDownloadId = downloadManager.enqueue(request)
                 // 如需要进度及下载状态，增加下载监听
@@ -262,9 +263,15 @@ class UpdateManager : UpdateDialogListener, UpdateApi {
     private fun downLoadMangerIsEnable(context: Context): Boolean {
         val state = context.applicationContext.packageManager
             .getApplicationEnabledSetting("com.android.providers.downloads")
-        return !(state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED || state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER || state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED)
+        return !(checkApplicationState(state) || checkComponentEnableState(state) || checkComponentDisableState(state))
     }
 
+    private fun checkComponentDisableState(state: Int) =
+        state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED
+
+    private fun checkComponentEnableState(state: Int) = state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER
+
+    private fun checkApplicationState(state: Int) = state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED
     /**
      * 清除上一个任务，防止apk重复下载
      */
@@ -353,17 +360,10 @@ class UpdateManager : UpdateDialogListener, UpdateApi {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                 intent.setDataAndType(
                     Uri.fromFile(apkFile),
-                    "application/vnd.android.package-archive"
+                    DownloadReceiver.INTENT_ACTION_TYPE
                 )
             } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    val allowInstall = context!!.packageManager.canRequestPackageInstalls()
-                    if (!allowInstall) {
-                        //不允许安装未知来源应用，请求安装未知应用来源的权限
-                        updateDialogFragment.requestInstallPermission()
-                        return
-                    }
-                }
+                if (isSupportInstall(context)) return
                 //Android7.0之后获取uri要用contentProvider
                 val apkUri = FileProvider.getUriForFile(
                     context!!.applicationContext, context.packageName + ".fileProvider",
@@ -371,7 +371,7 @@ class UpdateManager : UpdateDialogListener, UpdateApi {
                 )
                 //Granting Temporary Permissions to a URI
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
+                intent.setDataAndType(apkUri, DownloadReceiver.INTENT_ACTION_TYPE)
             }
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context!!.startActivity(intent)
@@ -379,6 +379,17 @@ class UpdateManager : UpdateDialogListener, UpdateApi {
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
+    }
+    private fun isSupportInstall(context: Context?): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val allowInstall = context!!.packageManager.canRequestPackageInstalls()
+            if (!allowInstall) {
+                //不允许安装未知来源应用，请求安装未知应用来源的权限
+                updateDialogFragment.requestInstallPermission()
+                return true
+            }
+        }
+        return false
     }
 
     /**
@@ -474,7 +485,7 @@ class UpdateManager : UpdateDialogListener, UpdateApi {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                     intent.setDataAndType(
                         Uri.fromFile(downloadFile),
-                        "application/vnd.android.package-archive"
+                        DownloadReceiver.INTENT_ACTION_TYPE
                     )
                 } else {
                     //Android7.0之后获取uri要用contentProvider
@@ -484,7 +495,7 @@ class UpdateManager : UpdateDialogListener, UpdateApi {
                     )
                     //Granting Temporary Permissions to a URI
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
+                    intent.setDataAndType(apkUri,  DownloadReceiver.INTENT_ACTION_TYPE)
                 }
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(intent)
