@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="807dp"
-    android:layout_height="586dp"
+    android:layout_width="605dp"
+    android:layout_height="439dp"
     android:background="@drawable/bg_white_radius_10">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_bg"
-        android:layout_width="767dp"
-        android:layout_height="145dp"
+        android:layout_width="575dp"
+        android:layout_height="109dp"
         android:scaleType="centerCrop"
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="15dp"
@@ -33,7 +33,7 @@
             android:text="发现新版本"
             android:layout_marginTop="10dp"
             android:textColor="@color/white"
-            android:textSize="27sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/iv_bg"
             app:layout_constraintTop_toTopOf="@+id/iv_bg" />
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:textColor="@color/white"
-            android:textSize="17sp"
+            android:textSize="13sp"
             app:layout_constraintStart_toStartOf="@+id/tvTitle"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle"
             tools:text="V2.12.12" />
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:textColor="@color/white"
-            android:textSize="17sp"
+            android:textSize="13sp"
             app:layout_constraintStart_toStartOf="@+id/tvVersion"
             app:layout_constraintTop_toBottomOf="@+id/tvVersion"
             tools:text="158M" />
@@ -73,20 +73,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="20dp"
             android:text="更新内容"
             android:textColor="@color/black333333"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvContent"
             android:layout_width="wrap_content"
-            android:layout_height="270dp"
+            android:layout_height="170dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="25dp"
             android:textColor="@color/black666666"
-            android:textSize="17sp"
-            android:lineSpacingExtra="20dp"
+            android:textSize="13sp"
+            android:lineSpacingExtra="15dp"
             tools:text="@string/tools_content" />
         <com.yuu.upgrade.view.XDownloadProgressBar
             android:id="@+id/progress"
