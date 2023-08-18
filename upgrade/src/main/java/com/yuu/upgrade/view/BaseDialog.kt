@@ -33,7 +33,7 @@ abstract class BaseDialog() : AppCompatDialogFragment() {
         if (dialog != null) {
             dialog.window?.apply {
                 setGravity(Gravity.CENTER)
-                setLayout(dp2px(807),dp2px(586))
+                setLayout(dp2px(605),dp2px(439))
                 setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 dialog.setCanceledOnTouchOutside(false)
                 dialog.setCancelable(false)
