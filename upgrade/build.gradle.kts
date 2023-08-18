@@ -58,7 +58,7 @@ afterEvaluate {
             create<MavenPublication>("release"){
                 group = "com.yuu.upgrade"
                 artifactId = "Upgrade"
-                version = "0.0.1-alpha"
+                version = "0.0.3-alpha"
                 from(components["release"])
             }
         }
